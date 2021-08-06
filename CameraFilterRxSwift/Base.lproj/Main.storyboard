@@ -52,6 +52,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="filterButton" destination="GOp-n6-Fo9" id="3iV-0o-qx2"/>
+                        <outlet property="photoImageView" destination="t5Z-kO-fYF" id="8HI-jH-F2f"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
