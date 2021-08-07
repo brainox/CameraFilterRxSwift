@@ -28,16 +28,17 @@ class FilterService {
     
     private func applyFilter(to inputImage: UIImage, completion: @escaping ((UIImage) -> Void)) {
         
-        guard let sepiaFilter = CIFilter(name: "CISepiaTone") else {return}
-        sepiaFilter.setValue(5.0, forKey: kCIInputWidthKey)
+        guard let CIGaussianBlur = CIFilter(name: "CIGaussianBlur") else {return}
+        CIGaussianBlur.setValue(8, forKey: kCIInputRadiusKey)
         
         if let sourceImage = CIImage(image: inputImage) {
             
-            sepiaFilter.setValue(sourceImage, forKey: kCIInputImageKey)
+            CIGaussianBlur.setValue(sourceImage, forKey: kCIInputImageKey)
             
-            guard let outputImage = sepiaFilter.outputImage else {return}
+            guard let outputImage = CIGaussianBlur.outputImage else {return}
             
             if let cgImg = self.context.createCGImage(outputImage, from: outputImage.extent) {
+                
                 let processedImage = UIImage(cgImage: cgImg, scale: inputImage.scale, orientation: inputImage.imageOrientation)
                 completion(processedImage)
             }
