@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var filterButton: UIButton!
+    let filterService = FilterService()
     
     let disposeBag = DisposeBag()
     
@@ -35,6 +36,18 @@ class ViewController: UIViewController {
             .disposed(by: disposeBag)
         
         
+    }
+    
+    @IBAction func applyFilterButtonPressed(){
+        guard let sourceImage = self.photoImageView.image else {return}
+        
+        filterService.applyFilter(to: sourceImage)
+            .subscribe(onNext:  { filteredImage in
+                DispatchQueue.main.async {
+                    self.photoImageView.image = filteredImage
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     private func updateUI(photo: UIImage) {
